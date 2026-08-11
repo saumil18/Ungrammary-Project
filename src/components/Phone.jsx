@@ -8,7 +8,7 @@ import { useNav } from '../navContext.js'
    iPhone 15/16 logical resolution of 393 × 852 pt, then the whole device is
    scaled down for display. So every frame is a genuine 393×852 artboard while
    the page layout and the polished proportions stay exactly the same. */
-export function Phone({ children, tab = null, darkStatus = false, bg, screenKey, anim = false }) {
+export function Phone({ children, tab = null, darkStatus = false, bg, screenKey, anim = false, overlay = null }) {
   return (
     <div className="phone-holder">
       <div className="phone">
@@ -20,6 +20,7 @@ export function Phone({ children, tab = null, darkStatus = false, bg, screenKey,
               <div className={'screen' + (anim ? ' anim' : '')} key={screenKey}>{children}</div>
             </div>
             {tab !== undefined && tab !== null && <TabBar active={tab} />}
+            {overlay && <div className="modal">{overlay}</div>}
             <div className={'home-ind' + (darkStatus ? ' light' : '')} />
           </div>
         </div>

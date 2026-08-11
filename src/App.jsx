@@ -1,5 +1,5 @@
 import { IcSpark } from './components/Icons.jsx'
-import { Phone } from './components/Phone.jsx'
+import { PhoneScreen } from './components/PhoneScreen.jsx'
 import { Prototype } from './components/Prototype.jsx'
 import { SCREENS, FLOWS } from './screens/registry.jsx'
 
@@ -117,9 +117,7 @@ export default function App() {
               n += 1
               return (
                 <div className="screen-wrap" key={id}>
-                  <Phone tab={s.tab} darkStatus={s.darkStatus} bg={s.bg} screenKey={id}>
-                    <s.Comp />
-                  </Phone>
+                  <PhoneScreen id={id} screenKey={id} />
                   <div className="screen-cap">
                     <b><span className="screen-num tnum">{String(n).padStart(2, '0')}</span>{s.name}</b>
                     <span>{s.sub}</span>

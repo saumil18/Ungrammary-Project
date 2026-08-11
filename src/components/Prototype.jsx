@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
-import { Phone } from './Phone.jsx'
+import { PhoneScreen } from './PhoneScreen.jsx'
 import { NavContext } from '../navContext.js'
 import { SCREENS, FLOWS, TAB_ROOTS } from '../screens/registry.jsx'
 import { IcChevL, IcSpark } from './Icons.jsx'
@@ -19,6 +19,7 @@ export function Prototype() {
   const nav = useMemo(() => ({ go, back, tab, reset, active: current, interactive: true }), [go, back, tab, reset, current])
 
   const meta = SCREENS[current]
+  const prev = stack[stack.length - 2]
   const flow = FLOWS.find((f) => f.screens.includes(current)) || FLOWS[0]
 
   return (
@@ -53,9 +54,7 @@ export function Prototype() {
         </div>
 
         <div className="proto-stage live">
-          <Phone tab={meta.tab} darkStatus={meta.darkStatus} bg={meta.bg} screenKey={current + '-' + count} anim>
-            <meta.Comp />
-          </Phone>
+          <PhoneScreen id={current} prevId={prev} screenKey={current + '-' + count} anim />
         </div>
       </div>
     </NavContext.Provider>

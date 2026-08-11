@@ -23,12 +23,12 @@ export const SCREENS = {
   // Home
   home:     { Comp: Home,       tab: 'home', name: 'Home',            sub: 'Predicted month + breakdown' },
   leaks:    { Comp: LeakFlags,  tab: 'home', name: 'Leak flags',      sub: 'Forgotten recurring spends' },
-  divert:   { Comp: DivertNudge, tab: null,  name: 'Divert to invest', sub: 'One-tap nudge sheet' },
+  divert:   { Comp: DivertNudge, tab: null, overlay: true, under: 'home', name: 'Divert to invest', sub: 'One-tap nudge sheet' },
 
   // Budget
   budget:     { Comp: BudgetList,    tab: 'budget', name: 'Budgets list',      sub: 'Category limits at a glance' },
   editBudget: { Comp: EditBudget,    tab: 'budget', name: 'Set / edit budget', sub: 'Smart suggested limit' },
-  anomaly:    { Comp: AnomalyAlert,  tab: null,     name: 'Anomaly alert',     sub: 'Unusual-spend, not scary' },
+  anomaly:    { Comp: AnomalyAlert,  tab: null, overlay: true, under: 'budget', name: 'Anomaly alert', sub: 'Unusual-spend, not scary' },
   summary:    { Comp: BudgetSummary, tab: 'budget', name: 'Weekly / monthly',  sub: 'Spend vs save summary' },
 
   // Invest

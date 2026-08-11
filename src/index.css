@@ -216,8 +216,12 @@ body {
 .pad { padding: 4px 18px 20px; }
 
 /* home-indicator */
-.home-ind { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); width: 116px; height: 5px; border-radius: 3px; background: rgba(20,22,28,0.28); z-index: 45; }
+.home-ind { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); width: 116px; height: 5px; border-radius: 3px; background: rgba(20,22,28,0.28); z-index: 60; }
 .home-ind.light { background: rgba(255,255,255,0.6); }
+
+/* modal / bottom-sheet layer — sits over the underlying screen + tab bar */
+.modal { position: absolute; inset: 0; z-index: 50; display: flex; flex-direction: column; animation: fadeIn .22s ease both; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* =====================================================================
    APP UI COMPONENTS
