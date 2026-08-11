@@ -409,8 +409,9 @@ body {
 @keyframes popIn { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
 .sheet-up { animation: sheetUp .34s cubic-bezier(.2,.7,.2,1) both; }
 @keyframes sheetUp { from { transform: translateY(40px); opacity: 0.4; } to { transform: none; opacity: 1; } }
-/* modal backdrop — a clean, deep dim (not a washed grey) behind the sheet */
-.scrim { background: rgba(12, 14, 22, 0.62); }
+/* modal backdrop — deep near-opaque dark so the rounded corners read as clean
+   dark, never a translucent-over-light-grey wash */
+.scrim { background: rgba(9, 11, 18, 0.88); }
 /* bottom-sheet surface: soft, generously rounded top corners */
 .sheet {
   background: var(--surface);
