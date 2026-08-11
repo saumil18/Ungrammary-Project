@@ -161,6 +161,7 @@ body {
 .phone-screen {
   width: 100%; height: 100%;
   background: var(--bg);
+  color: var(--ink); /* explicit base so screens never inherit the dark prototype band's white text */
   border-radius: 38px;
   overflow: hidden;
   position: relative;
