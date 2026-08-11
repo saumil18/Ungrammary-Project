@@ -130,7 +130,7 @@ export function DivertNudge() {
   const nav = useNav()
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div className="grow" style={{ background: 'rgba(20,22,28,0.35)' }} onClick={() => nav.back()} />
+      <div className="grow scrim" onClick={() => nav.back()} />
       <div className="sheet sheet-up">
         <div className="grabber" />
         <div className="hero-ill pop-in" style={{ width: 80, height: 80, background: 'var(--green-soft)', color: 'var(--green)', margin: '0 auto 16px' }}>
