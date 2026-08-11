@@ -102,8 +102,8 @@ export function AnomalyAlert() {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div className="grow" style={{ background: 'rgba(20,22,28,0.35)' }} onClick={() => nav.back()} />
-      <div className="sheet-up" style={{ background: 'var(--surface)', borderRadius: '26px 26px 0 0', padding: '10px 20px 24px', boxShadow: '0 -10px 30px rgba(0,0,0,0.12)' }}>
-        <div style={{ width: 40, height: 4, borderRadius: 3, background: 'var(--line)', margin: '0 auto 18px' }} />
+      <div className="sheet sheet-up">
+        <div className="grabber" />
         <div className="hero-ill pop-in" style={{ width: 80, height: 80, background: 'var(--amber-soft)', color: 'var(--amber)', margin: '0 auto 14px' }}>
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5M12 17v.5"/></svg>
         </div>

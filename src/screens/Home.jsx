@@ -131,8 +131,8 @@ export function DivertNudge() {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div className="grow" style={{ background: 'rgba(20,22,28,0.35)' }} onClick={() => nav.back()} />
-      <div className="sheet-up" style={{ background: 'var(--surface)', borderRadius: '26px 26px 0 0', padding: '10px 20px 24px', boxShadow: '0 -10px 30px rgba(0,0,0,0.12)' }}>
-        <div style={{ width: 40, height: 4, borderRadius: 3, background: 'var(--line)', margin: '0 auto 18px' }} />
+      <div className="sheet sheet-up">
+        <div className="grabber" />
         <div className="hero-ill pop-in" style={{ width: 80, height: 80, background: 'var(--green-soft)', color: 'var(--green)', margin: '0 auto 16px' }}>
           <IcArrowUp size={38} />
         </div>
