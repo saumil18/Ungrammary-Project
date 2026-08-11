@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5B4FE9" />
+  <title>SpendWise · Case Study · Ungrammary Assignment</title>
+  <meta name="description" content="Design case study for SpendWise — an AI-powered personal finance app concept that predicts spending, flags leak expenses, and nudges young Indians to invest the difference." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --brand:#5B4FE9; --brand-press:#4A3FD0; --brand-soft:#ECEAFD;
+      --green:#12B76A; --green-soft:#E4F7EE; --amber:#F79009; --amber-soft:#FEF1DF;
+      --red:#F04438; --red-soft:#FEE9E7;
+      --bg:#F4F5F8; --surface:#FFFFFF; --surface-2:#FAFAFC;
+      --ink:#14161C; --ink-2:#454A54; --muted:#888FA0; --line:#ECEDF2;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      --r:16px; --r-lg:24px; --r-pill:999px;
+      --sh-1:0 1px 3px rgba(20,22,28,.06),0 1px 2px rgba(20,22,28,.04);
+      --sh-2:0 8px 24px rgba(20,22,28,.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:900px;margin:0 auto;padding:0 24px}
+    .tnum{font-variant-numeric:tabular-nums}
+    a{color:var(--brand);text-decoration:none;font-weight:600}
+    a:hover{text-decoration:underline}
+
+    /* hero */
+    .hero{background:
+      radial-gradient(900px 460px at 85% -20%,rgba(255,255,255,.18),transparent 60%),
+      linear-gradient(160deg,#6C5CF5 0%,#5B4FE9 45%,#4A3FD0 100%);
+      color:#fff;padding:64px 0 72px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);padding:8px 14px;border-radius:var(--r-pill);color:#fff}
+    .hero h1{font-size:clamp(34px,6vw,54px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:20px 0 14px}
+    .hero p.lede{font-size:clamp(16px,2.4vw,19px);max-width:640px;color:#fff;opacity:.92}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+    .chip{font-size:13px;font-weight:600;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);padding:7px 12px;border-radius:var(--r-pill)}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:13px 20px;border-radius:14px;border:1.5px solid transparent}
+    .btn-light{background:#fff;color:var(--brand)}
+    .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+
+    /* sections */
+    section{padding:56px 0}
+    section+section{border-top:1px solid var(--line)}
+    .kicker{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--brand)}
+    h2{font-size:clamp(24px,3.4vw,32px);font-weight:800;letter-spacing:-.02em;margin:8px 0 6px}
+    h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin:0 0 6px}
+    .sub{color:var(--ink-2);font-size:16px;max-width:680px}
+    p{color:var(--ink-2);font-size:15.5px}
+    p+p{margin-top:12px}
+    .lead-in{margin-top:14px}
+
+    .grid{display:grid;gap:16px;margin-top:26px}
+    .g2{grid-template-columns:repeat(2,1fr)}
+    .g3{grid-template-columns:repeat(3,1fr)}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--sh-1)}
+    .card h3{margin-bottom:8px}
+    .card p{font-size:14.5px}
+    .card .num{font-size:13px;font-weight:800;color:var(--brand);background:var(--brand-soft);width:30px;height:30px;border-radius:9px;display:grid;place-items:center;margin-bottom:12px}
+
+    ul.clean{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:10px}
+    ul.clean li{position:relative;padding-left:26px;color:var(--ink-2);font-size:15px}
+    ul.clean li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--brand)}
+    ul.clean.green li::before{background:var(--green)}
+
+    /* persona */
+    .persona{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+    .avatar{width:76px;height:76px;border-radius:22px;flex:none;background:linear-gradient(145deg,#6C5CF5,#4A3FD0);display:grid;place-items:center;color:#fff;font-size:30px;font-weight:800}
+    .quote{background:var(--brand-soft);border-radius:var(--r);padding:18px 20px;font-size:16px;font-weight:600;color:#3B32B0;margin-top:18px;border-left:4px solid var(--brand)}
+
+    /* colour + type */
+    .swatches{display:flex;flex-wrap:wrap;gap:14px;margin-top:20px}
+    .sw{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+    .sw i{width:100%;min-width:120px;height:52px;border-radius:12px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+    .sw b{font-size:13px}.sw span{font-size:12px;color:var(--muted)}
+    .swrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px}
+    .type-scale>div{display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+    .type-scale .lbl{font-size:12px;color:var(--muted);width:120px;flex:none}
+
+    /* decision blocks */
+    .flow{display:grid;grid-template-columns:150px 1fr;gap:22px;padding:22px 0;border-bottom:1px solid var(--line)}
+    .flow:last-child{border-bottom:none}
+    .flow .tag{font-size:12px;font-weight:700;color:var(--brand);letter-spacing:.04em;text-transform:uppercase}
+    .flow h3{margin-top:6px}
+    .decision{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px;font-size:14px}
+    .decision b{color:var(--ink)}
+
+    .pill{display:inline-block;font-size:12px;font-weight:700;padding:4px 10px;border-radius:var(--r-pill)}
+    .pill.green{background:var(--green-soft);color:#0B7B47}
+    .pill.amber{background:var(--amber-soft);color:#B4650A}
+    .pill.brand{background:var(--brand-soft);color:var(--brand)}
+
+    footer{background:#14162A;color:#C7CBDE;padding:48px 0;text-align:center}
+    footer a{color:#B7B0FF}
+    footer .links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:18px 0}
+    footer .links a{background:rgba(255,255,255,.08);padding:10px 16px;border-radius:12px;font-size:14px}
+
+    @media(max-width:680px){
+      .g2,.g3{grid-template-columns:1fr}
+      .flow{grid-template-columns:1fr;gap:8px}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">✦ Ungrammary · UI/UX Design Assignment</span>
+      <h1>SpendWise</h1>
+      <p class="lede">An AI-powered personal finance app that predicts your month, flags the small “leak” expenses draining your account, and gently nudges you to invest the difference — so growing money feels calm, not stressful.</p>
+      <div class="chips">
+        <span class="chip">👤 Young professionals · 22–30 · India</span>
+        <span class="chip">📱 Mobile-first (iPhone 15/16 · 393×852)</span>
+        <span class="chip">🌱 New to investing</span>
+        <span class="chip">₹ Rupee-native</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-light" href="./index.html">▶ Open the live prototype</a>
+        <a class="btn btn-ghost" href="https://github.com/saumil18/Ungrammary-Project" target="_blank" rel="noopener">View the code</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">Overview</span>
+      <h2>The one-line idea</h2>
+      <p class="sub lead-in">Most money apps show you the past — what you already spent. SpendWise looks <b style="color:var(--ink)">forward</b>: it predicts the month ahead, points out the tiny recurring spends you’ve forgotten about, and turns that wasted money into a small, low-risk investment. One calm loop: <b style="color:var(--ink)">predict → spot leaks → divert to invest.</b></p>
+      <div class="grid g3">
+        <div class="card"><div class="num">01</div><h3>Predict</h3><p>An AI forecast of the full month’s spend, by category, in plain language.</p></div>
+        <div class="card"><div class="num">02</div><h3>Spot leaks</h3><p>Flags unused subscriptions and creeping habits — money slipping away quietly.</p></div>
+        <div class="card"><div class="num">03</div><h3>Divert</h3><p>One tap moves those leaks into a low-risk fund. Growth, without the anxiety.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">The problem</span>
+      <h2>Money is stressful when you’re just starting out</h2>
+      <p class="sub lead-in">India’s young earners are financially capable but anxious. They save when they can, but investing feels like a locked door — full of jargon, risk, and fear of “doing it wrong.”</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3>What they feel</h3>
+          <ul class="clean">
+            <li>“I earn okay, but I don’t know where it goes.”</li>
+            <li>“Investing sounds smart, but also scary and complicated.”</li>
+            <li>“Budgeting apps make me feel guilty, not in control.”</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Where apps fall short</h3>
+          <ul class="clean">
+            <li>They report the past instead of preparing you for what’s next.</li>
+            <li>They shout in red and use finance jargon.</li>
+            <li>They stop at “here’s your spending” — no bridge to actually growing money.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USER -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">Who I designed for</span>
+      <h2>Meet Aarav</h2>
+      <div class="persona" style="margin-top:22px">
+        <div class="avatar">A</div>
+        <div style="flex:1;min-width:260px">
+          <h3>Aarav Mehta · 26 · Bengaluru</h3>
+          <p>Two years into his first real job, earning ₹62k/month. Comfortable with UPI and apps, new to mutual funds. Wants an emergency fund and to “start investing” but keeps putting it off.</p>
+          <div class="quote">“I don’t want a finance degree. I just want something that quietly tells me I’m okay — and helps me do the smart thing without me having to think about it.”</div>
+        </div>
+      </div>
+      <div class="grid g3" style="margin-top:26px">
+        <div class="card"><h3>Goals</h3><ul class="clean green"><li>Build a 3-month emergency fund</li><li>Start investing, safely</li><li>Stop small money leaks</li></ul></div>
+        <div class="card"><h3>Frustrations</h3><ul class="clean"><li>Jargon &amp; risk anxiety</li><li>Guilt-driven budgeting</li><li>No time to “manage money”</li></ul></div>
+        <div class="card"><h3>Context</h3><ul class="clean"><li>Phone-first, always</li><li>Pays &amp; splits via UPI</li><li>Short, in-between-things sessions</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOALS / PRINCIPLES -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">Design goals</span>
+      <h2>Reduce money anxiety, on every screen</h2>
+      <p class="sub lead-in">Every decision laddered back to one north star: <b style="color:var(--ink)">make a nervous first-time investor feel calm and in control.</b></p>
+      <div class="grid g2">
+        <div class="card"><h3>One clear action per screen</h3><p>Never more than one primary button. The next right step is always obvious.</p></div>
+        <div class="card"><h3>Plain, friendly language</h3><p>“Leaks,” “divert to invest,” “you’re on track” — no CAGR, no NAV, no jargon.</p></div>
+        <div class="card"><h3>Large, legible numbers</h3><p>The number you care about is the biggest thing on the screen, in tabular figures.</p></div>
+        <div class="card"><h3>Calm, not corporate</h3><p>Soft neutrals, generous whitespace, one confident brand colour — reassuring, not loud.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN SYSTEM -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">Design system</span>
+      <h2>A small, consistent kit</h2>
+
+      <h3 style="margin-top:26px">Colour — restrained &amp; meaningful</h3>
+      <p>One confident brand colour; every other colour carries a fixed meaning, so a hue is never decorative.</p>
+      <div class="swrow" style="margin-top:16px">
+        <div class="sw"><i style="background:#5B4FE9"></i><b>Brand · Indigo</b><span>Youthful trust, not bank-blue</span></div>
+        <div class="sw"><i style="background:#12B76A"></i><b>Green</b><span>Savings &amp; growth</span></div>
+        <div class="sw"><i style="background:#F79009"></i><b>Amber</b><span>Budget warnings</span></div>
+        <div class="sw"><i style="background:#F04438"></i><b>Red</b><span>Real errors only</span></div>
+        <div class="sw"><i style="background:#F4F5F8"></i><b>Neutral</b><span>Soft background</span></div>
+        <div class="sw"><i style="background:#14161C"></i><b>Ink</b><span>Primary text</span></div>
+      </div>
+
+      <h3 style="margin-top:32px">Type — one family, clear hierarchy</h3>
+      <p>Inter throughout, tuned to real iOS sizes on a 393-pt canvas.</p>
+      <div class="type-scale" style="margin-top:12px">
+        <div><span class="lbl">Display / 800</span><b class="tnum" style="font-size:34px;letter-spacing:-.03em">₹48,200</b></div>
+        <div><span class="lbl">Heading / 700</span><b style="font-size:20px">Where it’s going</b></div>
+        <div><span class="lbl">Body / 400</span><span style="font-size:15px">Comfortable, readable body copy.</span></div>
+        <div><span class="lbl">Caption / 600</span><span style="font-size:12.5px;color:var(--muted)">Small supporting label</span></div>
+      </div>
+
+      <h3 style="margin-top:32px">Components &amp; foundations</h3>
+      <div class="grid g3" style="margin-top:14px">
+        <div class="card"><p><b style="color:var(--ink)">Reusable set:</b> buttons (primary / secondary), inputs, cards, list rows with amounts, chips (category &amp; risk), bottom tab bar, donut / bar / area charts, bottom sheets.</p></div>
+        <div class="card"><p><b style="color:var(--ink)">Shape &amp; space:</b> rounded corners, soft subtle shadows, an 8-pt spacing system, and generous padding for breathing room.</p></div>
+        <div class="card"><p><b style="color:var(--ink)">Frame:</b> a true iPhone 15/16 canvas — <span class="tnum">393 × 852&nbsp;pt</span> — so the design maps 1:1 to a real device.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOWS + DECISIONS -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">Flows &amp; key decisions</span>
+      <h2>25 screens, six flows</h2>
+      <p class="sub lead-in">Onboarding plus five tabs — Home, Budget, Invest, Reports, Profile. A few decisions that shaped the work:</p>
+
+      <div style="margin-top:24px">
+        <div class="flow">
+          <div><span class="tag">1.1 · Onboarding</span></div>
+          <div>
+            <h3>A calm, two-minute setup</h3>
+            <p>One question per screen, a progress bar, and a clear reason for every permission we ask for.</p>
+            <div class="decision"><b>Decision:</b> the account-linking screen leads with “<b>Read-only</b> — SpendWise can never move your money,” because trust is the biggest barrier for a first-time user handing over bank access.</div>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div><span class="tag">2.1.1 · Home</span></div>
+          <div>
+            <h3>Spend prediction — the heart of the app</h3>
+            <p>The predicted month up top, a category donut, then leak flags, then the divert-to-invest nudge — in that order.</p>
+            <div class="decision"><b>Decision:</b> leaks are framed as gentle <span class="pill amber">nudges</span>, never accusations — “these are just nudges, nothing happens automatically.” Anxiety down, agency up.</div>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div><span class="tag">2.1.3 · Invest</span></div>
+          <div>
+            <h3>Low-risk first, jargon never</h3>
+            <p>Recommendations are ranked by comfort, a simulator lets you see growth before committing, and round-ups automate the habit.</p>
+            <div class="decision"><b>Decision:</b> the <span class="pill green">simulate-before-you-commit</span> step exists specifically to defuse fear — you watch the money grow on a slider before any real decision.</div>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div><span class="tag">2.1.2 · Budget</span></div>
+          <div>
+            <h3>Alerts that inform, not alarm</h3>
+            <p>An unusual-spend alert reads “that’s a bigger spend than usual” — a heads-up, not a telling-off.</p>
+            <div class="decision"><b>Decision:</b> colour is <b>never used alone</b>. Every warning pairs its amber/red with text and an icon, so meaning survives for colour-blind users.</div>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div><span class="tag">2.1.4–5 · Reports &amp; Profile</span></div>
+          <div>
+            <h3>The long view, and control</h3>
+            <p>A six-month spend-vs-save history and an AI forecast of next month — explained in words, not just charts. Profile keeps goals, linked accounts, and calm-by-default notifications in one place.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESSIBILITY -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">Accessibility</span>
+      <h2>Designed to be usable by more people</h2>
+      <div class="grid g3">
+        <div class="card"><h3>Contrast</h3><p>Strong text contrast against soft neutral surfaces for comfortable reading.</p></div>
+        <div class="card"><h3>Never colour alone</h3><p>Status is always carried by text + icon as well as colour.</p></div>
+        <div class="card"><h3>Tap targets ≥ 44px</h3><p>Comfortable, thumb-friendly hit areas throughout the mobile UI.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">What I’d explore next</span>
+      <h2>If this went further</h2>
+      <ul class="clean">
+        <li>Usability testing with 5–6 first-time investors to pressure-test the “divert” language and the trust framing on account linking.</li>
+        <li>A dark theme and dynamic type sizes for accessibility.</li>
+        <li>Regional language support (Hindi, and one South-Indian language) given the target audience.</li>
+        <li>A goal-progress celebration moment to reinforce the savings habit over time.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div style="font-size:20px;font-weight:800;letter-spacing:-.02em;color:#fff">SpendWise</div>
+      <p style="color:#9AA0BE;margin-top:6px">Mobile-first fintech concept · 25 screens · designed &amp; built for the Ungrammary UI/UX assignment.</p>
+      <div class="links">
+        <a href="./index.html">▶ Live prototype</a>
+        <a href="https://ungrammary-project.vercel.app/" target="_blank" rel="noopener">Vercel</a>
+        <a href="https://saumil18.github.io/Ungrammary-Project/" target="_blank" rel="noopener">GitHub Pages</a>
+        <a href="https://github.com/saumil18/Ungrammary-Project" target="_blank" rel="noopener">Source code</a>
+      </div>
+      <p style="color:#6D7398;font-size:12.5px;margin-top:8px">Alternative names considered: Sprout · Nudge · Driftless · Paise · Not investment advice.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

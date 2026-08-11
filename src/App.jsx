@@ -130,6 +130,9 @@ export default function App() {
       ))}
 
       <footer className="footer">
+        <p style={{ marginBottom: 14 }}>
+          <a href="./case-study.html" style={{ fontWeight: 700 }}>📄 Read the design case study →</a>
+        </p>
         <p>
           <b>SpendWise</b> — a mobile-first fintech concept · {total} screens ·
           Designed &amp; built for the <b>Ungrammary</b> UI/UX assignment.
