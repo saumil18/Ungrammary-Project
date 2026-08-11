@@ -131,7 +131,9 @@ export default function App() {
 
       <footer className="footer">
         <p style={{ marginBottom: 14 }}>
-          <a href="./case-study.html" style={{ fontWeight: 700 }}>📄 Read the design case study →</a>
+          <a href="./case-study.html" style={{ fontWeight: 700 }}>📄 Case study</a>
+          <span style={{ margin: '0 10px', color: 'var(--line)' }}>·</span>
+          <a href="./design-system.html" style={{ fontWeight: 700 }}>🎨 Design system</a>
         </p>
         <p>
           <b>SpendWise</b> — a mobile-first fintech concept · {total} screens ·
