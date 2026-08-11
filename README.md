@@ -6,6 +6,10 @@ A **mobile-first fintech app concept** — designed and built as an interactive,
 
 Every screen is rendered inside a real iPhone frame. Open the live site and scroll through all **25 screens**, grouped by flow.
 
+**Live demo:** https://saumil18.github.io/Ungrammary-Project/
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/saumil18/Ungrammary-Project)
+
 ## Product
 
 - **What it does:** AI spend prediction → leak detection → “divert to invest” nudges.
