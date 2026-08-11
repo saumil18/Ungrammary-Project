@@ -134,6 +134,8 @@ export default function App() {
           <a href="./case-study.html" style={{ fontWeight: 700 }}>📄 Case study</a>
           <span style={{ margin: '0 10px', color: 'var(--line)' }}>·</span>
           <a href="./design-system.html" style={{ fontWeight: 700 }}>🎨 Design system</a>
+          <span style={{ margin: '0 10px', color: 'var(--line)' }}>·</span>
+          <a href="./user-flows.html" style={{ fontWeight: 700 }}>🗺️ User flows &amp; IA</a>
         </p>
         <p>
           <b>SpendWise</b> — a mobile-first fintech concept · {total} screens ·

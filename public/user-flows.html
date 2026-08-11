@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5B4FE9" />
+  <title>SpendWise · User Flows &amp; IA · Ungrammary Assignment</title>
+  <meta name="description" content="Information architecture, sitemap and key user-journey flows for SpendWise." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --brand:#5B4FE9; --brand-soft:#ECEAFD; --green:#12B76A; --green-soft:#E4F7EE;
+      --amber:#F79009; --amber-soft:#FEF1DF; --red:#F04438;
+      --bg:#F4F5F8; --surface:#FFFFFF; --ink:#14161C; --ink-2:#454A54; --muted:#888FA0; --line:#ECEDF2;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      --sh-1:0 1px 3px rgba(20,22,28,.06),0 1px 2px rgba(20,22,28,.04);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+    a{color:var(--brand);text-decoration:none;font-weight:600}
+
+    .hero{background:linear-gradient(160deg,#6C5CF5 0%,#5B4FE9 45%,#4A3FD0 100%);color:#fff;padding:56px 0 60px}
+    .eyebrow{display:inline-flex;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);padding:8px 14px;border-radius:999px}
+    .hero h1{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.03em;margin:18px 0 10px}
+    .hero p{font-size:17px;max-width:660px;color:#fff;opacity:.92}
+    .hero .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    .hlink{background:#fff;color:var(--brand);font-weight:700;font-size:14px;padding:11px 18px;border-radius:12px}
+    .hlink.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+
+    section{padding:52px 0;border-top:1px solid var(--line)}
+    .kicker{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--brand)}
+    h2{font-size:clamp(23px,3.2vw,30px);font-weight:800;letter-spacing:-.02em;margin:8px 0 4px}
+    .sub{color:var(--ink-2);font-size:16px;max-width:740px;margin-bottom:8px}
+
+    /* legend */
+    .legend{display:flex;flex-wrap:wrap;gap:16px;margin:18px 0 6px}
+    .legend span{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);font-weight:600}
+    .dot{width:14px;height:14px;border-radius:5px;display:inline-block}
+
+    /* sitemap */
+    .map{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--sh-1);margin-top:20px}
+    .root{display:inline-block;background:var(--ink);color:#fff;font-weight:800;font-size:15px;padding:10px 18px;border-radius:12px}
+    .maprow{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:22px}
+    .branch h3{font-size:13px;font-weight:800;letter-spacing:.02em;padding:9px 12px;border-radius:10px;margin-bottom:10px;text-align:center}
+    .branch ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+    .branch li{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:12.5px;font-weight:600;color:var(--ink-2)}
+    .ob-row{margin-top:20px}
+    .ob-row .branch h3{max-width:220px}
+    .ob-chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+
+    /* nodes + flow chains */
+    .node{display:inline-flex;flex-direction:column;gap:2px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;min-width:96px;box-shadow:var(--sh-1)}
+    .node b{font-size:13px;letter-spacing:-.01em}
+    .node span{font-size:10.5px;color:var(--muted);font-weight:600}
+    .node.brand{border-color:var(--brand);background:var(--brand-soft)}
+    .node.green{border-color:var(--green);background:var(--green-soft)}
+    .node.amber{border-color:var(--amber);background:var(--amber-soft)}
+    .node.start{background:var(--brand);border-color:var(--brand);color:#fff}
+    .node.start span{color:rgba(255,255,255,.8)}
+    .node.end{background:var(--green);border-color:var(--green);color:#fff}
+    .node.end span{color:rgba(255,255,255,.85)}
+    .arrow{color:var(--muted);font-weight:800;font-size:16px;padding:0 2px;flex:none}
+
+    .chain-block{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:var(--sh-1);margin-top:16px}
+    .chain-block .tag{font-size:12px;font-weight:800;color:var(--brand);letter-spacing:.03em;text-transform:uppercase}
+    .chain-block h3{font-size:16px;font-weight:700;margin:6px 0 4px}
+    .chain-block p{font-size:13.5px;color:var(--ink-2)}
+    .chain{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+    .branchnote{font-size:12px;color:var(--muted);margin-top:10px;padding-left:2px}
+    .branchnote b{color:var(--ink-2)}
+
+    footer{background:#14162A;color:#C7CBDE;padding:44px 0;text-align:center}
+    footer .links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px 0}
+    footer .links a{background:rgba(255,255,255,.08);padding:10px 16px;border-radius:12px;font-size:14px;color:#B7B0FF}
+
+    @media(max-width:820px){.maprow{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.maprow{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">✦ Ungrammary · Information Architecture &amp; Flows</span>
+      <h1>User flows &amp; IA</h1>
+      <p>The structure behind SpendWise — a sitemap of every screen, and the key user journeys from logging in, to predicting spends, to controlling expenses, to investing. Designed for minimal friction.</p>
+      <div class="links">
+        <a class="hlink" href="./index.html">▶ Walk the flows — live prototype</a>
+        <a class="hlink ghost" href="./design-system.html">Design system</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SITEMAP / IA -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">Information architecture</span>
+      <h2>Sitemap — 25 screens, 6 groups</h2>
+      <p class="sub">A shallow hierarchy: a one-time onboarding, then a 5-tab main app. Nothing important is more than one tap from a tab.</p>
+
+      <div class="legend">
+        <span><i class="dot" style="background:var(--ink)"></i> App root</span>
+        <span><i class="dot" style="background:var(--brand)"></i> Onboarding</span>
+        <span><i class="dot" style="background:var(--brand-soft);border:1px solid var(--brand)"></i> Tab</span>
+        <span><i class="dot" style="background:#fff;border:1px solid var(--line)"></i> Screen</span>
+      </div>
+
+      <div class="map">
+        <div style="text-align:center"><span class="root">SpendWise</span></div>
+
+        <div class="ob-row">
+          <div class="branch"><h3 style="background:var(--brand);color:#fff">1.1 · Onboarding (first run)</h3></div>
+          <div class="ob-chain">
+            <span class="node"><b>Welcome</b></span><span class="arrow">›</span>
+            <span class="node"><b>Create account</b></span><span class="arrow">›</span>
+            <span class="node"><b>Income &amp; details</b></span><span class="arrow">›</span>
+            <span class="node"><b>Spending habits</b></span><span class="arrow">›</span>
+            <span class="node"><b>Financial goals</b></span><span class="arrow">›</span>
+            <span class="node"><b>Link account</b></span><span class="arrow">›</span>
+            <span class="node"><b>Ready</b></span>
+          </div>
+        </div>
+
+        <div class="maprow">
+          <div class="branch">
+            <h3 style="background:var(--brand-soft);color:var(--brand)">Home</h3>
+            <ul><li>Spend prediction</li><li>Leak flags</li><li>Divert-to-invest sheet</li></ul>
+          </div>
+          <div class="branch">
+            <h3 style="background:var(--brand-soft);color:var(--brand)">Budget</h3>
+            <ul><li>Budgets list</li><li>Set / edit budget</li><li>Anomaly alert</li><li>Weekly / monthly summary</li></ul>
+          </div>
+          <div class="branch">
+            <h3 style="background:var(--brand-soft);color:var(--brand)">Invest</h3>
+            <ul><li>Recommendations</li><li>Investment detail</li><li>Simulator</li><li>Round-up / auto</li><li>Confirm &amp; success</li></ul>
+          </div>
+          <div class="branch">
+            <h3 style="background:var(--brand-soft);color:var(--brand)">Reports</h3>
+            <ul><li>Spend vs save</li><li>Next-month prediction</li></ul>
+          </div>
+          <div class="branch">
+            <h3 style="background:var(--brand-soft);color:var(--brand)">Profile</h3>
+            <ul><li>Profile hub</li><li>Goals</li><li>Linked accounts</li><li>Notifications</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY FLOWS -->
+  <section>
+    <div class="wrap">
+      <span class="kicker">Key user journeys</span>
+      <h2>The core loop, step by step</h2>
+      <p class="sub">Each journey is short and has one clear next step. Green = a satisfying end state.</p>
+
+      <div class="chain-block">
+        <span class="tag">Journey 1 · First run</span>
+        <h3>From download to a working dashboard</h3>
+        <p>One question per screen, then the first prediction is ready.</p>
+        <div class="chain">
+          <span class="node start"><b>Welcome</b><span>launch</span></span><span class="arrow">→</span>
+          <span class="node"><b>Create account</b><span>phone + OTP</span></span><span class="arrow">→</span>
+          <span class="node"><b>Income</b></span><span class="arrow">→</span>
+          <span class="node"><b>Habits</b></span><span class="arrow">→</span>
+          <span class="node"><b>Goals</b></span><span class="arrow">→</span>
+          <span class="node"><b>Link account</b><span>read-only</span></span><span class="arrow">→</span>
+          <span class="node"><b>Ready</b></span><span class="arrow">→</span>
+          <span class="node end"><b>Home</b><span>dashboard</span></span>
+        </div>
+      </div>
+
+      <div class="chain-block">
+        <span class="tag">Journey 2 · Spot &amp; divert a leak</span>
+        <h3>Turn wasted spend into an investment</h3>
+        <p>The heart of the product — predict, notice a leak, and move that money to grow.</p>
+        <div class="chain">
+          <span class="node start"><b>Home</b><span>predicted month</span></span><span class="arrow">→</span>
+          <span class="node amber"><b>Leak flags</b><span>3 found · ₹2,400</span></span><span class="arrow">→</span>
+          <span class="node brand"><b>Divert sheet</b><span>confirm</span></span><span class="arrow">→</span>
+          <span class="node end"><b>Success</b><span>investing</span></span>
+        </div>
+        <div class="branchnote"><b>Entry points:</b> Home “Review leaks” banner · Home “Divert to invest” card · Leak flags “Divert all”.</div>
+      </div>
+
+      <div class="chain-block">
+        <span class="tag">Journey 3 · Start investing</span>
+        <h3>Low-risk first, simulate before committing</h3>
+        <p>Fear is defused by letting the user see growth on a slider before any real decision.</p>
+        <div class="chain">
+          <span class="node start"><b>Invest</b><span>recommendations</span></span><span class="arrow">→</span>
+          <span class="node"><b>Fund detail</b><span>why this</span></span><span class="arrow">→</span>
+          <span class="node brand"><b>Simulator</b><span>see it grow</span></span><span class="arrow">→</span>
+          <span class="node"><b>Auto-invest</b><span>round-ups</span></span><span class="arrow">→</span>
+          <span class="node end"><b>Success</b></span>
+        </div>
+      </div>
+
+      <div class="chain-block">
+        <span class="tag">Journey 4 · Control expenses</span>
+        <h3>Budgets, alerts &amp; summaries</h3>
+        <p>Set limits, get a calm heads-up when something’s unusual, and review weekly/monthly.</p>
+        <div class="chain">
+          <span class="node start"><b>Budget</b><span>by category</span></span><span class="arrow">→</span>
+          <span class="node amber"><b>Anomaly alert</b><span>unusual spend</span></span><span class="arrow">→</span>
+          <span class="node"><b>Edit budget</b></span><span class="arrow">→</span>
+          <span class="node end"><b>Summary</b><span>spend vs save</span></span>
+        </div>
+      </div>
+
+      <div class="chain-block">
+        <span class="tag">Journey 5 · Look ahead</span>
+        <h3>Reports &amp; next-month forecast</h3>
+        <div class="chain">
+          <span class="node start"><b>Reports</b><span>6-month history</span></span><span class="arrow">→</span>
+          <span class="node brand"><b>Next month</b><span>AI forecast</span></span><span class="arrow">→</span>
+          <span class="node green"><b>Plan savings</b><span>→ Invest</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div style="font-size:20px;font-weight:800;letter-spacing:-.02em;color:#fff">SpendWise · Flows &amp; IA</div>
+      <div class="links">
+        <a href="./index.html">▶ Live prototype</a>
+        <a href="./design-system.html">Design system</a>
+        <a href="./case-study.html">Case study</a>
+        <a href="https://github.com/saumil18/Ungrammary-Project" target="_blank" rel="noopener">Source code</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
