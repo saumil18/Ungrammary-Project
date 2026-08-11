@@ -4,17 +4,25 @@ import { useNav } from '../navContext.js'
 /* iPhone hardware frame + notch + status bar + home indicator.
    `tab` highlights the active bottom tab; pass tab={null} to hide the tab bar
    (used for onboarding & full-bleed flows). `darkStatus` flips status text white. */
+/* The screen is authored on a compact canvas and uniformly scaled up to a true
+   iPhone 15/16 logical resolution of 393 × 852 pt, then the whole device is
+   scaled down for display. So every frame is a genuine 393×852 artboard while
+   the page layout and the polished proportions stay exactly the same. */
 export function Phone({ children, tab = null, darkStatus = false, bg, screenKey, anim = false }) {
   return (
-    <div className="phone">
-      <div className="phone-screen" style={bg ? { background: bg } : undefined}>
-        <div className="island" />
-        <StatusBar dark={darkStatus} />
-        <div className="viewport">
-          <div className={'screen' + (anim ? ' anim' : '')} key={screenKey}>{children}</div>
+    <div className="phone-holder">
+      <div className="phone">
+        <div className="phone-screen" style={bg ? { background: bg } : undefined}>
+          <div className="phone-canvas">
+            <div className="island" />
+            <StatusBar dark={darkStatus} />
+            <div className="viewport">
+              <div className={'screen' + (anim ? ' anim' : '')} key={screenKey}>{children}</div>
+            </div>
+            {tab !== undefined && tab !== null && <TabBar active={tab} />}
+            <div className={'home-ind' + (darkStatus ? ' light' : '')} />
+          </div>
         </div>
-        {tab !== undefined && tab !== null && <TabBar active={tab} />}
-        <div className={'home-ind' + (darkStatus ? ' light' : '')} />
       </div>
     </div>
   )
