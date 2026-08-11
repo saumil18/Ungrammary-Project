@@ -1,9 +1,10 @@
-import { Phone } from '../components/Phone.jsx'
 import { AppBar, Bars, AreaLine, inr } from '../components/UI.jsx'
-import { IcSpark, IcArrowUp, IcInfo, IcArrowDown } from '../components/Icons.jsx'
+import { useNav } from '../navContext.js'
+import { IcSpark, IcArrowUp, IcArrowDown, IcChevR } from '../components/Icons.jsx'
 
 /* Spend vs save graph */
 export function SpendVsSave() {
+  const nav = useNav()
   const months = [
     { label: 'Mar', segments: [{ v: 42000, color: '#5B4FE9' }, { v: 6000, color: '#12B76A' }] },
     { label: 'Apr', segments: [{ v: 45000, color: '#5B4FE9' }, { v: 5200, color: '#12B76A' }] },
@@ -13,7 +14,7 @@ export function SpendVsSave() {
     { label: 'Aug', segments: [{ v: 36500, color: '#5B4FE9' }, { v: 9400, color: '#12B76A' }] },
   ]
   return (
-    <Phone tab="reports">
+    <>
       <AppBar title="Reports" sub="6 months at a glance" />
       <div className="pad" style={{ paddingTop: 2 }}>
         <div className="seg" style={{ marginBottom: 14 }}>
@@ -42,29 +43,31 @@ export function SpendVsSave() {
           </div>
         </div>
 
-        <div className="card" style={{ marginTop: 14, background: 'var(--green-soft)', border: 'none' }}>
+        <div className="card tap" style={{ marginTop: 14, background: 'var(--brand-soft)', border: 'none' }} onClick={() => nav.go('nextMonth')}>
           <div className="rowflex">
-            <div className="ic" style={{ width: 42, height: 42, background: '#fff', color: 'var(--green)' }}><IcArrowUp size={22} /></div>
-            <div className="grow"><b style={{ fontSize: 14.5 }}>You’re trending up</b><p className="ink2" style={{ fontSize: 12.5 }}>Savings grew 4 of the last 6 months. Small leaks, handled.</p></div>
+            <div className="ic" style={{ width: 42, height: 42, background: '#fff', color: 'var(--brand)' }}><IcSpark size={22} /></div>
+            <div className="grow"><b style={{ fontSize: 14.5 }}>See next month’s prediction</b><p className="ink2" style={{ fontSize: 12.5 }}>Your AI forecast for September, explained.</p></div>
+            <IcChevR size={20} className="muted" />
           </div>
         </div>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* Next-month prediction */
 export function NextMonthPrediction() {
+  const nav = useNav()
   const pts = [
     { x: 0, y: 42000 }, { x: 1, y: 45000 }, { x: 2, y: 39000 },
     { x: 3, y: 41000 }, { x: 4, y: 38000 }, { x: 5, y: 36500, big: true },
     { x: 6, y: 35200, big: true },
   ]
   return (
-    <Phone tab="reports">
+    <>
       <AppBar title="Next month" sub="What September looks like" back right={<span className="pill brand"><IcSpark size={13} /> AI</span>} />
       <div className="pad" style={{ paddingTop: 4 }}>
-        <div className="card" style={{ background: 'linear-gradient(155deg,#5B4FE9,#4A3FD0)', border: 'none', color: '#fff' }}>
+        <div className="card grad-brand" style={{ border: 'none', color: '#fff' }}>
           <span style={{ fontSize: 12.5, opacity: 0.85, fontWeight: 600 }}>Predicted spend · September</span>
           <div className="display tnum" style={{ margin: '6px 0 2px' }}><span className="rs" style={{ opacity: 0.7 }}>₹</span>35,200</div>
           <div className="rowflex" style={{ gap: 8, marginTop: 4 }}>
@@ -95,9 +98,9 @@ export function NextMonthPrediction() {
             <div className="ic" style={{ width: 42, height: 42, background: '#fff', color: 'var(--green)' }}><IcArrowUp size={22} /></div>
             <div className="grow"><b style={{ fontSize: 14.5 }}>You could save {inr(11400)}</b><p className="ink2" style={{ fontSize: 12.5 }}>If September goes as predicted. Want us to auto-invest half?</p></div>
           </div>
-          <button className="btn btn-green btn-sm" style={{ width: '100%', marginTop: 12 }}>Plan September savings</button>
+          <button className="btn btn-green btn-sm" style={{ width: '100%', marginTop: 12 }} onClick={() => nav.tab('invest')}>Plan September savings</button>
         </div>
       </div>
-    </Phone>
+    </>
   )
 }

@@ -1,80 +1,7 @@
 import { IcSpark } from './components/Icons.jsx'
-import { Welcome, CreateAccount, IncomeDetails, SpendingHabits, FinancialGoals, LinkAccount, Ready } from './screens/Onboarding.jsx'
-import { Home, LeakFlags, DivertNudge } from './screens/Home.jsx'
-import { BudgetList, EditBudget, AnomalyAlert, BudgetSummary } from './screens/Budget.jsx'
-import { InvestRecs, InvestDetail, Simulator, RoundUp, InvestSuccess } from './screens/Invest.jsx'
-import { SpendVsSave, NextMonthPrediction } from './screens/Reports.jsx'
-import { ProfileHome, Goals, LinkedAccounts, Notifications } from './screens/Profile.jsx'
-
-const SECTIONS = [
-  {
-    kicker: '1.1 · Onboarding',
-    title: 'First run',
-    desc: 'A calm, two-minute setup. One question per screen, plain language, and a clear reason for every permission we ask for.',
-    screens: [
-      { c: <Welcome />, t: 'Welcome', s: 'Warm intro + single CTA' },
-      { c: <CreateAccount />, t: 'Create account', s: 'Phone-first, OTP, encrypted' },
-      { c: <IncomeDetails />, t: 'Income & details', s: 'Powers the prediction' },
-      { c: <SpendingHabits />, t: 'Spending habits', s: 'Pick categories to watch' },
-      { c: <FinancialGoals />, t: 'Financial goals', s: 'What you’re saving for' },
-      { c: <LinkAccount />, t: 'Link account', s: 'Read-only, revoke anytime' },
-      { c: <Ready />, t: 'Ready', s: 'First prediction delivered' },
-    ],
-  },
-  {
-    kicker: '2.1.1 · Home',
-    title: 'Spend prediction',
-    desc: 'The heart of the app: what this month will cost, where it goes, the little leaks — and one gentle nudge to invest the difference.',
-    screens: [
-      { c: <Home />, t: 'Home', s: 'Predicted month + breakdown' },
-      { c: <LeakFlags />, t: 'Leak flags', s: 'Forgotten recurring spends' },
-      { c: <DivertNudge />, t: 'Divert to invest', s: 'One-tap nudge sheet' },
-    ],
-  },
-  {
-    kicker: '2.1.2 · Budget',
-    title: 'Budgets & alerts',
-    desc: 'Set limits without guilt. Colour + text always agree, so a warning never relies on colour alone.',
-    screens: [
-      { c: <BudgetList />, t: 'Budgets list', s: 'Category limits at a glance' },
-      { c: <EditBudget />, t: 'Set / edit budget', s: 'Smart suggested limit' },
-      { c: <AnomalyAlert />, t: 'Anomaly alert', s: 'Unusual-spend, not scary' },
-      { c: <BudgetSummary />, t: 'Weekly / monthly', s: 'Spend vs save summary' },
-    ],
-  },
-  {
-    kicker: '2.1.3 · Invest',
-    title: 'Invest',
-    desc: 'Low-risk first, jargon never. Simulate before committing, automate with round-ups, and celebrate the start.',
-    screens: [
-      { c: <InvestRecs />, t: 'Recommendations', s: 'Ranked low-risk options' },
-      { c: <InvestDetail />, t: 'Investment detail', s: 'Why we suggest it' },
-      { c: <Simulator />, t: 'Simulator', s: 'See it grow, then decide' },
-      { c: <RoundUp />, t: 'Round-up & auto', s: 'Spare-change investing' },
-      { c: <InvestSuccess />, t: 'Confirm & success', s: 'Reassuring finish' },
-    ],
-  },
-  {
-    kicker: '2.1.4 · Reports',
-    title: 'Reports',
-    desc: 'The long view. Spend-versus-save history and an AI forecast of next month, explained in words.',
-    screens: [
-      { c: <SpendVsSave />, t: 'Spend vs save', s: '6-month history' },
-      { c: <NextMonthPrediction />, t: 'Next-month prediction', s: 'AI forecast, explained' },
-    ],
-  },
-  {
-    kicker: '2.1.5 · Profile',
-    title: 'Profile',
-    desc: 'Everything personal in one calm place — goals, the accounts you’ve linked, notification controls, and your details.',
-    screens: [
-      { c: <ProfileHome />, t: 'Profile hub', s: 'Overview + shortcuts' },
-      { c: <Goals />, t: 'Goals', s: 'Progress toward each' },
-      { c: <LinkedAccounts />, t: 'Linked accounts', s: 'Read-only, synced' },
-      { c: <Notifications />, t: 'Notifications', s: 'Calm by default' },
-    ],
-  },
-]
+import { Phone } from './components/Phone.jsx'
+import { Prototype } from './components/Prototype.jsx'
+import { SCREENS, FLOWS } from './screens/registry.jsx'
 
 function Masthead() {
   return (
@@ -110,8 +37,8 @@ function Masthead() {
 
 function DesignSystem() {
   const colors = [
-    ['Brand', '#5B4FE9'], ['Green · growth', '#12B76A'], ['Amber · warning', '#F79009'],
-    ['Red · error', '#F04438'], ['Background', '#F4F5F8'], ['Ink', '#14161C'],
+    ['Brand', '#5B4FE9'], ['Growth', '#12B76A'], ['Warning', '#F79009'],
+    ['Error', '#F04438'], ['Surface', '#FFFFFF'], ['Ink', '#14161C'],
   ]
   return (
     <div className="dsys">
@@ -119,7 +46,7 @@ function DesignSystem() {
         <h3>Colour</h3>
         <div className="swatches">
           {colors.map(([n, c]) => (
-            <div className="swatch" key={n}><i style={{ background: c }} /><span>{n.split(' ')[0]}</span></div>
+            <div className="swatch" key={n}><i style={{ background: c }} /><span>{n}</span></div>
           ))}
         </div>
       </div>
@@ -158,27 +85,44 @@ function DesignSystem() {
 
 export default function App() {
   let n = 0
+  const total = FLOWS.reduce((s, f) => s + f.screens.length, 0)
   return (
     <div className="page">
       <Masthead />
+
+      {/* interactive prototype hero */}
+      <section className="proto-band">
+        <Prototype />
+      </section>
+
       <DesignSystem />
 
-      {SECTIONS.map((sec, si) => (
-        <section key={si}>
+      {/* full static gallery — every screen, grouped by flow */}
+      <div className="section" style={{ marginTop: 46 }}>
+        <div className="kicker">All screens</div>
+        <h2>Every screen, grouped by flow</h2>
+        <p>The complete set below — {total} screens across onboarding and the five main tabs. The phone above is the live, tappable version.</p>
+      </div>
+
+      {FLOWS.map((sec) => (
+        <section key={sec.id}>
           <div className="section">
             <div className="kicker">{sec.kicker}</div>
             <h2>{sec.title}</h2>
             <p>{sec.desc}</p>
           </div>
           <div className="gallery">
-            {sec.screens.map((scr, i) => {
+            {sec.screens.map((id) => {
+              const s = SCREENS[id]
               n += 1
               return (
-                <div className="screen-wrap" key={i}>
-                  {scr.c}
+                <div className="screen-wrap" key={id}>
+                  <Phone tab={s.tab} darkStatus={s.darkStatus} bg={s.bg} screenKey={id}>
+                    <s.Comp />
+                  </Phone>
                   <div className="screen-cap">
-                    <b><span className="screen-num tnum">{String(n).padStart(2, '0')}</span>{scr.t}</b>
-                    <span>{scr.s}</span>
+                    <b><span className="screen-num tnum">{String(n).padStart(2, '0')}</span>{s.name}</b>
+                    <span>{s.sub}</span>
                   </div>
                 </div>
               )
@@ -189,7 +133,7 @@ export default function App() {
 
       <footer className="footer">
         <p>
-          <b>SpendWise</b> — a mobile-first fintech concept · {SECTIONS.reduce((s, x) => s + x.screens.length, 0)} screens ·
+          <b>SpendWise</b> — a mobile-first fintech concept · {total} screens ·
           Designed &amp; built for the <b>Ungrammary</b> UI/UX assignment.
         </p>
         <p style={{ marginTop: 8 }}>Alternative names considered: <b>Sprout</b> · <b>Nudge</b> · <b>Driftless</b> · <b>Paise</b></p>

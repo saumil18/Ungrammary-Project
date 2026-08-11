@@ -1,15 +1,18 @@
 import { IcHome, IcBudget, IcInvest, IcReports, IcProfile, IcPlus } from './Icons.jsx'
+import { useNav } from '../navContext.js'
 
 /* iPhone hardware frame + notch + status bar + home indicator.
    `tab` highlights the active bottom tab; pass tab={null} to hide the tab bar
    (used for onboarding & full-bleed flows). `darkStatus` flips status text white. */
-export function Phone({ children, tab = null, darkStatus = false, bg }) {
+export function Phone({ children, tab = null, darkStatus = false, bg, screenKey, anim = false }) {
   return (
     <div className="phone">
       <div className="phone-screen" style={bg ? { background: bg } : undefined}>
         <div className="island" />
         <StatusBar dark={darkStatus} />
-        <div className="viewport">{children}</div>
+        <div className="viewport">
+          <div className={'screen' + (anim ? ' anim' : '')} key={screenKey}>{children}</div>
+        </div>
         {tab !== undefined && tab !== null && <TabBar active={tab} />}
         <div className={'home-ind' + (darkStatus ? ' light' : '')} />
       </div>
@@ -42,19 +45,20 @@ const TABS = [
 ]
 
 export function TabBar({ active }) {
+  const nav = useNav()
   return (
     <nav className="tabbar" aria-label="Primary">
       {TABS.map(({ id, label, Icon, fab }) =>
         fab ? (
-          <div key={id} className={'tab fab' + (active === id ? ' on' : '')}>
+          <button key={id} className={'tab fab' + (active === id ? ' on' : '')} onClick={() => nav.tab(id)} aria-label={label}>
             <div className="fabbtn"><IcPlus size={24} sw={2.2} /></div>
             <span style={{ marginTop: 4 }}>{label}</span>
-          </div>
+          </button>
         ) : (
-          <div key={id} className={'tab' + (active === id ? ' on' : '')}>
+          <button key={id} className={'tab' + (active === id ? ' on' : '')} onClick={() => nav.tab(id)} aria-label={label}>
             <Icon size={23} sw={active === id ? 2.1 : 1.8} />
             <span>{label}</span>
-          </div>
+          </button>
         )
       )}
     </nav>

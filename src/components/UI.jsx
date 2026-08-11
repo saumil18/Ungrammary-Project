@@ -1,4 +1,5 @@
 import { IcChevL, IcBell } from './Icons.jsx'
+import { useNav } from '../navContext.js'
 
 /* ---- rupee formatter ---- */
 export const inr = (n) =>
@@ -6,10 +7,11 @@ export const inr = (n) =>
 
 /* ---- App bar inside a screen ---- */
 export function AppBar({ title, sub, back = false, right, big = false }) {
+  const nav = useNav()
   return (
     <div className="appbar">
       <div className="left">
-        {back && <button className="iconbtn" aria-label="Back"><IcChevL size={20} /></button>}
+        {back && <button className="iconbtn" aria-label="Back" onClick={() => nav.back()}><IcChevL size={20} /></button>}
         <div>
           <div className="title" style={big ? { fontSize: 24 } : undefined}>{title}</div>
           {sub && <div className="sub">{sub}</div>}
@@ -21,8 +23,9 @@ export function AppBar({ title, sub, back = false, right, big = false }) {
 }
 
 export function BellBtn() {
+  const nav = useNav()
   return (
-    <button className="iconbtn" aria-label="Notifications" style={{ position: 'relative' }}>
+    <button className="iconbtn" aria-label="Notifications" style={{ position: 'relative' }} onClick={() => nav.go('notifications')}>
       <IcBell size={20} />
       <i style={{ position: 'absolute', top: 8, right: 9, width: 7, height: 7, borderRadius: 4, background: 'var(--red)' }} />
     </button>

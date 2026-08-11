@@ -1,48 +1,51 @@
-import { Phone } from '../components/Phone.jsx'
 import { Steps, inr } from '../components/UI.jsx'
+import { useNav } from '../navContext.js'
 import {
   IcSpark, IcChevL, IcCheck, IcTarget, IcShield, IcLink, IcLock, IcArrowUp,
 } from '../components/Icons.jsx'
 
-const OnbTop = ({ step, total = 6, onBack = true }) => (
-  <div className="pad" style={{ paddingTop: 8, paddingBottom: 12 }}>
-    <div className="rowflex" style={{ marginBottom: 14 }}>
-      {onBack && <button className="iconbtn" aria-label="Back"><IcChevL size={20} /></button>}
-      <div className="grow" style={{ padding: '0 6px' }}><Steps total={total} current={step} /></div>
-      <span className="muted" style={{ fontSize: 13, fontWeight: 600 }}>{step + 1}/{total}</span>
+function OnbTop({ step, total = 6, onBack = true }) {
+  const nav = useNav()
+  return (
+    <div className="pad" style={{ paddingTop: 8, paddingBottom: 12 }}>
+      <div className="rowflex" style={{ marginBottom: 14 }}>
+        {onBack && <button className="iconbtn" aria-label="Back" onClick={() => nav.back()}><IcChevL size={20} /></button>}
+        <div className="grow" style={{ padding: '0 6px' }}><Steps total={total} current={step} /></div>
+        <span className="muted" style={{ fontSize: 13, fontWeight: 600 }}>{step + 1}/{total}</span>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 /* 1 — Welcome */
 export function Welcome() {
+  const nav = useNav()
   return (
-    <Phone darkStatus bg="linear-gradient(160deg,#6C5CF5 0%,#4A3FD0 60%,#3B32B0 100%)">
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column', color: '#fff', padding: '18px 22px 26px' }}>
-        <div className="grow" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-          <div style={{ width: 84, height: 84, borderRadius: 24, background: 'rgba(255,255,255,0.16)', display: 'grid', placeItems: 'center', marginBottom: 26, backdropFilter: 'blur(4px)' }}>
-            <IcSpark size={44} />
-          </div>
-          <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.15 }}>
-            Money that<br />looks after itself.
-          </h1>
-          <p style={{ fontSize: 15.5, opacity: 0.85, marginTop: 14, maxWidth: 250 }}>
-            SpendWise predicts your month, spots the small leaks, and quietly grows the rest.
-          </p>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', color: '#fff', padding: '18px 22px 26px' }}>
+      <div className="grow" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+        <div className="float-badge" style={{ width: 84, height: 84, borderRadius: 24, background: 'rgba(255,255,255,0.16)', display: 'grid', placeItems: 'center', marginBottom: 26, backdropFilter: 'blur(4px)' }}>
+          <IcSpark size={44} />
         </div>
-        <div className="stack-gap">
-          <button className="btn" style={{ background: '#fff', color: 'var(--brand)' }}>Get started</button>
-          <button className="btn btn-ghost" style={{ color: '#fff' }}>I already have an account</button>
-        </div>
+        <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.15 }}>
+          Money that<br />looks after itself.
+        </h1>
+        <p style={{ fontSize: 15.5, opacity: 0.85, marginTop: 14, maxWidth: 250 }}>
+          SpendWise predicts your month, spots the small leaks, and quietly grows the rest.
+        </p>
       </div>
-    </Phone>
+      <div className="stack-gap">
+        <button className="btn cta" style={{ background: '#fff', color: 'var(--brand)' }} onClick={() => nav.go('create')}>Get started</button>
+        <button className="btn btn-ghost" style={{ color: '#fff' }} onClick={() => nav.tab('home')}>I already have an account</button>
+      </div>
+    </div>
   )
 }
 
 /* 2 — Create account */
 export function CreateAccount() {
+  const nav = useNav()
   return (
-    <Phone>
+    <>
       <OnbTop step={0} onBack={false} />
       <div className="pad">
         <h1 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.02em' }}>Let’s create your account</h1>
@@ -67,16 +70,17 @@ export function CreateAccount() {
         </div>
       </div>
       <div className="pad mt-a" style={{ paddingTop: 4 }}>
-        <button className="btn btn-primary">Send OTP</button>
+        <button className="btn btn-primary cta" onClick={() => nav.go('income')}>Send OTP</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* 3 — Income & basic details */
 export function IncomeDetails() {
+  const nav = useNav()
   return (
-    <Phone>
+    <>
       <OnbTop step={1} />
       <div className="pad">
         <h1 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.02em' }}>Tell us about your income</h1>
@@ -104,15 +108,16 @@ export function IncomeDetails() {
         </div>
       </div>
       <div className="pad mt-a" style={{ paddingTop: 4 }}>
-        <button className="btn btn-primary">Continue</button>
+        <button className="btn btn-primary cta" onClick={() => nav.go('habits')}>Continue</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* 4 — Spending habits */
 const Toggle = ({ on }) => <div className={'toggle' + (on ? ' on' : '')}><i /></div>
 export function SpendingHabits() {
+  const nav = useNav()
   const cats = [
     { e: '🍔', n: 'Eating out & food delivery', on: true },
     { e: '🛵', n: 'Cabs & commute', on: true },
@@ -121,7 +126,7 @@ export function SpendingHabits() {
     { e: '💊', n: 'Health & fitness', on: false },
   ]
   return (
-    <Phone>
+    <>
       <OnbTop step={2} />
       <div className="pad">
         <h1 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.02em' }}>Where does it usually go?</h1>
@@ -145,21 +150,22 @@ export function SpendingHabits() {
         </div>
       </div>
       <div className="pad mt-a" style={{ paddingTop: 14 }}>
-        <button className="btn btn-primary">Continue</button>
+        <button className="btn btn-primary cta" onClick={() => nav.go('obGoals')}>Continue</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* 5 — Financial goals */
 export function FinancialGoals() {
+  const nav = useNav()
   const goals = [
     { Ic: IcShield, t: 'Emergency fund', d: '3 months of expenses', on: true, c: 'var(--green)' },
     { Ic: IcArrowUp, t: 'Start investing', d: 'Grow money slowly', on: true, c: 'var(--brand)' },
     { Ic: IcTarget, t: 'Big purchase', d: 'Phone, trip, gadget', on: false, c: 'var(--amber)' },
   ]
   return (
-    <Phone>
+    <>
       <OnbTop step={3} />
       <div className="pad">
         <h1 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.02em' }}>What are you saving for?</h1>
@@ -185,16 +191,17 @@ export function FinancialGoals() {
         </div>
       </div>
       <div className="pad mt-a" style={{ paddingTop: 4 }}>
-        <button className="btn btn-primary">Continue</button>
+        <button className="btn btn-primary cta" onClick={() => nav.go('link')}>Continue</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* 6 — Link account / permissions */
 export function LinkAccount() {
+  const nav = useNav()
   return (
-    <Phone>
+    <>
       <OnbTop step={4} />
       <div className="pad">
         <div className="hero-ill" style={{ background: 'var(--brand-soft)', color: 'var(--brand)', width: 96, height: 96, margin: '4px auto 18px' }}>
@@ -207,7 +214,7 @@ export function LinkAccount() {
 
         <div className="card" style={{ padding: '6px 16px' }}>
           {[
-            { Ic: IcCheckShield, t: 'View-only access', d: 'We can see, never touch' },
+            { Ic: IcShield, t: 'View-only access', d: 'We can see, never touch' },
             { Ic: IcLock, t: 'Encrypted & RBI-aligned', d: 'Via a licensed account aggregator' },
             { Ic: IcEye, t: 'Revoke anytime', d: 'One tap in Profile' },
           ].map((r, i) => (
@@ -219,38 +226,36 @@ export function LinkAccount() {
         </div>
       </div>
       <div className="pad mt-a stack-gap" style={{ paddingTop: 14 }}>
-        <button className="btn btn-primary">Link securely</button>
-        <button className="btn btn-ghost">Maybe later</button>
+        <button className="btn btn-primary cta" onClick={() => nav.go('ready')}>Link securely</button>
+        <button className="btn btn-ghost" onClick={() => nav.go('ready')}>Maybe later</button>
       </div>
-    </Phone>
+    </>
   )
 }
-const IcCheckShield = (p) => <IcShield {...p} />
 const IcEye = (p) => (
   <svg width={p.size || 22} height={p.size || 22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
 )
 
 /* 7 — Ready */
 export function Ready() {
+  const nav = useNav()
   return (
-    <Phone darkStatus bg="linear-gradient(160deg,#12B76A 0%,#0B9E5C 60%,#0B7B47 100%)">
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column', color: '#fff', padding: '18px 22px 26px' }}>
-        <div className="grow" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-          <div style={{ width: 96, height: 96, borderRadius: '50%', background: 'rgba(255,255,255,0.18)', display: 'grid', placeItems: 'center', marginBottom: 24 }}>
-            <IcCheck size={52} sw={2.4} />
-          </div>
-          <h1 style={{ fontSize: 27, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>You’re all set, Aarav</h1>
-          <p style={{ fontSize: 15, opacity: 0.9, marginTop: 12, maxWidth: 260 }}>
-            We’ve built your first prediction. Looks like you could free up <b>{inr(2400)}/mo</b> to invest.
-          </p>
-          <div style={{ marginTop: 22, background: 'rgba(255,255,255,0.16)', borderRadius: 16, padding: '14px 18px', display: 'flex', gap: 22 }}>
-            <div><div style={{ fontSize: 22, fontWeight: 800 }}>{inr(48200)}</div><div style={{ fontSize: 11.5, opacity: 0.85 }}>Predicted spend</div></div>
-            <div style={{ width: 1, background: 'rgba(255,255,255,0.25)' }} />
-            <div><div style={{ fontSize: 22, fontWeight: 800 }}>{inr(2400)}</div><div style={{ fontSize: 11.5, opacity: 0.85 }}>Leaks found</div></div>
-          </div>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', color: '#fff', padding: '18px 22px 26px' }}>
+      <div className="grow" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+        <div className="pop-in" style={{ width: 96, height: 96, borderRadius: '50%', background: 'rgba(255,255,255,0.18)', display: 'grid', placeItems: 'center', marginBottom: 24 }}>
+          <IcCheck size={52} sw={2.4} />
         </div>
-        <button className="btn" style={{ background: '#fff', color: 'var(--green)' }}>Go to my dashboard</button>
+        <h1 style={{ fontSize: 27, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>You’re all set, Aarav</h1>
+        <p style={{ fontSize: 15, opacity: 0.9, marginTop: 12, maxWidth: 260 }}>
+          We’ve built your first prediction. Looks like you could free up <b>{inr(2400)}/mo</b> to invest.
+        </p>
+        <div style={{ marginTop: 22, background: 'rgba(255,255,255,0.16)', borderRadius: 16, padding: '14px 18px', display: 'flex', gap: 22 }}>
+          <div><div style={{ fontSize: 22, fontWeight: 800 }}>{inr(48200)}</div><div style={{ fontSize: 11.5, opacity: 0.85 }}>Predicted spend</div></div>
+          <div style={{ width: 1, background: 'rgba(255,255,255,0.25)' }} />
+          <div><div style={{ fontSize: 22, fontWeight: 800 }}>{inr(2400)}</div><div style={{ fontSize: 11.5, opacity: 0.85 }}>Leaks found</div></div>
+        </div>
       </div>
-    </Phone>
+      <button className="btn cta" style={{ background: '#fff', color: 'var(--green)' }} onClick={() => nav.tab('home')}>Go to my dashboard</button>
+    </div>
   )
 }

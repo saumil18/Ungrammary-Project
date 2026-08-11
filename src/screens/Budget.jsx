@@ -1,6 +1,6 @@
-import { Phone } from '../components/Phone.jsx'
 import { AppBar, Meter, Bars, inr } from '../components/UI.jsx'
-import { IcPlus, IcInfo, IcChevR, IcCheck } from '../components/Icons.jsx'
+import { useNav } from '../navContext.js'
+import { IcPlus, IcInfo, IcCheck, IcChevR } from '../components/Icons.jsx'
 
 const BUDGETS = [
   { e: '🍔', n: 'Food & dining', spent: 11800, cap: 12000, color: 'var(--amber)', pct: 98, state: 'warn' },
@@ -12,13 +12,14 @@ const BUDGETS = [
 
 /* Budgets list */
 export function BudgetList() {
+  const nav = useNav()
   return (
-    <Phone tab="budget">
+    <>
       <AppBar title="Budgets" sub="August · ₹36,500 of ₹47,000"
-        right={<button className="iconbtn" aria-label="Add budget"><IcPlus size={20} /></button>} />
+        right={<button className="iconbtn" aria-label="Add budget" onClick={() => nav.go('editBudget')}><IcPlus size={20} /></button>} />
       <div className="pad" style={{ paddingTop: 2 }}>
-        <div className="card" style={{ marginBottom: 4 }}>
-          <div className="spread"><span className="eyebrow">Total budget left</span><span className="pill green">On track</span></div>
+        <div className="card tap" style={{ marginBottom: 12 }} onClick={() => nav.go('summary')}>
+          <div className="spread"><span className="eyebrow">Total budget left</span><span className="rowflex" style={{ gap: 8 }}><span className="pill green">On track</span><IcChevR size={16} className="muted" /></span></div>
           <div className="display sm tnum" style={{ margin: '6px 0 10px' }}>{inr(10500)}</div>
           <Meter pct={78} color="var(--brand)" />
           <div className="spread" style={{ marginTop: 8, fontSize: 11.5 }} >
@@ -26,11 +27,18 @@ export function BudgetList() {
           </div>
         </div>
 
-        <div className="card-h" style={{ margin: '18px 2px 8px' }}><h4 style={{ fontSize: 14 }}>By category</h4><span className="link">Edit all</span></div>
+        {/* anomaly entry */}
+        <div className="banner amber tap" style={{ marginBottom: 4 }} onClick={() => nav.go('anomaly')}>
+          <IcInfo size={18} className="bi" style={{ color: 'var(--amber)' }} />
+          <div className="grow"><b>1 unusual spend today</b><p>A ₹4,300 food order — 3.5× your usual. Tap to review.</p></div>
+          <IcChevR size={18} className="muted" />
+        </div>
+
+        <div className="card-h" style={{ margin: '18px 2px 8px' }}><h4 style={{ fontSize: 14 }}>By category</h4><span className="link tap" onClick={() => nav.go('editBudget')}>Edit all</span></div>
 
         <div className="stack-gap">
           {BUDGETS.map((b, i) => (
-            <div className="card" key={i} style={{ padding: 14 }}>
+            <div className="card tap" key={i} style={{ padding: 14 }} onClick={() => nav.go('editBudget')}>
               <div className="rowflex" style={{ marginBottom: 10 }}>
                 <div className="ic" style={{ width: 40, height: 40, borderRadius: 12, background: 'var(--surface-2)', fontSize: 19 }}>{b.e}</div>
                 <div className="grow">
@@ -48,15 +56,16 @@ export function BudgetList() {
           ))}
         </div>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* Set / edit budget */
 export function EditBudget() {
+  const nav = useNav()
   const presets = [8000, 10000, 12000, 15000]
   return (
-    <Phone tab="budget">
+    <>
       <AppBar title="Edit budget" sub="Food & dining" back />
       <div className="pad" style={{ paddingTop: 4 }}>
         <div className="card center" style={{ padding: '22px 16px' }}>
@@ -81,44 +90,43 @@ export function EditBudget() {
         </div>
       </div>
       <div className="pad mt-a stack-gap" style={{ paddingTop: 16 }}>
-        <button className="btn btn-primary">Save budget</button>
+        <button className="btn btn-primary cta" onClick={() => nav.back()}>Save budget</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* Anomaly alert */
 export function AnomalyAlert() {
+  const nav = useNav()
   return (
-    <Phone tab="budget">
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <div className="grow" style={{ background: 'rgba(20,22,28,0.35)' }} />
-        <div style={{ background: 'var(--surface)', borderRadius: '26px 26px 0 0', padding: '10px 20px 24px', boxShadow: '0 -10px 30px rgba(0,0,0,0.12)' }}>
-          <div style={{ width: 40, height: 4, borderRadius: 3, background: 'var(--line)', margin: '0 auto 18px' }} />
-          <div className="hero-ill" style={{ width: 80, height: 80, background: 'var(--amber-soft)', color: 'var(--amber)', margin: '0 auto 14px' }}>
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5M12 17v.5"/></svg>
-          </div>
-          <div className="center"><span className="pill amber">Unusual activity</span></div>
-          <h2 className="center" style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', marginTop: 10 }}>That’s a bigger spend than usual</h2>
-          <p className="center ink2" style={{ fontSize: 14, marginTop: 6, padding: '0 4px' }}>
-            You spent <b style={{ color: 'var(--ink)' }}>{inr(4300)}</b> at <b style={{ color: 'var(--ink)' }}>Zomato</b> today — about <b style={{ color: 'var(--amber)' }}>3.5×</b> your usual food order.
-          </p>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div className="grow" style={{ background: 'rgba(20,22,28,0.35)' }} onClick={() => nav.back()} />
+      <div className="sheet-up" style={{ background: 'var(--surface)', borderRadius: '26px 26px 0 0', padding: '10px 20px 24px', boxShadow: '0 -10px 30px rgba(0,0,0,0.12)' }}>
+        <div style={{ width: 40, height: 4, borderRadius: 3, background: 'var(--line)', margin: '0 auto 18px' }} />
+        <div className="hero-ill pop-in" style={{ width: 80, height: 80, background: 'var(--amber-soft)', color: 'var(--amber)', margin: '0 auto 14px' }}>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5M12 17v.5"/></svg>
+        </div>
+        <div className="center"><span className="pill amber">Unusual activity</span></div>
+        <h2 className="center" style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', marginTop: 10 }}>That’s a bigger spend than usual</h2>
+        <p className="center ink2" style={{ fontSize: 14, marginTop: 6, padding: '0 4px' }}>
+          You spent <b style={{ color: 'var(--ink)' }}>{inr(4300)}</b> at <b style={{ color: 'var(--ink)' }}>Zomato</b> today — about <b style={{ color: 'var(--amber)' }}>3.5×</b> your usual food order.
+        </p>
 
-          <div className="card" style={{ marginTop: 16, background: 'var(--surface-2)' }}>
-            <div className="row" style={{ padding: '8px 0' }}>
-              <div className="ic" style={{ background: '#fff', fontSize: 18 }}>🍔</div>
-              <div className="body"><b>Zomato · Party order</b><span>Today, 8:42 PM</span></div>
-              <div className="amt tnum" style={{ color: 'var(--amber)' }}>-{inr(4300)}</div>
-            </div>
-          </div>
-
-          <div className="stack-gap" style={{ marginTop: 16 }}>
-            <button className="btn btn-secondary">This was expected</button>
-            <button className="btn btn-primary">Review my food budget</button>
+        <div className="card" style={{ marginTop: 16, background: 'var(--surface-2)' }}>
+          <div className="row" style={{ padding: '8px 0' }}>
+            <div className="ic" style={{ background: '#fff', fontSize: 18 }}>🍔</div>
+            <div className="body"><b>Zomato · Party order</b><span>Today, 8:42 PM</span></div>
+            <div className="amt tnum" style={{ color: 'var(--amber)' }}>-{inr(4300)}</div>
           </div>
         </div>
+
+        <div className="stack-gap" style={{ marginTop: 16 }}>
+          <button className="btn btn-secondary" onClick={() => nav.back()}>This was expected</button>
+          <button className="btn btn-primary" onClick={() => nav.go('editBudget')}>Review my food budget</button>
+        </div>
       </div>
-    </Phone>
+    </div>
   )
 }
 
@@ -131,9 +139,9 @@ export function BudgetSummary() {
     { label: 'W4', segments: [{ v: 4800, color: '#5B4FE9' }, { v: 3200, color: '#12B76A' }] },
   ]
   return (
-    <Phone tab="budget">
-      <AppBar title="Summary" sub="Your money, this month" />
-      <div className="pad" style={{ paddingTop: 2 }}>
+    <>
+      <AppBar title="Summary" sub="Your money, this month" back />
+      <div className="pad" style={{ paddingTop: 4 }}>
         <div className="seg" style={{ marginBottom: 14 }}>
           <button>Weekly</button><button className="on">Monthly</button>
         </div>
@@ -167,6 +175,6 @@ export function BudgetSummary() {
           </div>
         </div>
       </div>
-    </Phone>
+    </>
   )
 }

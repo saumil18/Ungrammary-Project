@@ -1,23 +1,24 @@
-import { Phone } from '../components/Phone.jsx'
 import { AppBar, Meter, inr } from '../components/UI.jsx'
+import { useNav } from '../navContext.js'
 import {
   IcTarget, IcLink, IcBell, IcProfile, IcChevR, IcShield, IcArrowUp,
-  IcLock, IcInfo, IcCheck, IcWallet, IcSettings,
+  IcLock, IcInfo, IcCheck, IcSettings,
 } from '../components/Icons.jsx'
 
 const Toggle = ({ on }) => <div className={'toggle' + (on ? ' on' : '')}><i /></div>
 
 /* Profile hub */
 export function ProfileHome() {
+  const nav = useNav()
   const items = [
-    { Ic: IcTarget, t: 'Goals', d: '2 active · 62% to emergency fund', c: 'var(--brand)' },
-    { Ic: IcLink, t: 'Linked accounts', d: '2 banks · 1 card', c: 'var(--green)' },
-    { Ic: IcBell, t: 'Notifications', d: 'Leaks, budgets, nudges', c: 'var(--amber)' },
+    { Ic: IcTarget, t: 'Goals', d: '2 active · 62% to emergency fund', c: 'var(--brand)', go: 'goals' },
+    { Ic: IcLink, t: 'Linked accounts', d: '2 banks · 1 card', c: 'var(--green)', go: 'linked' },
+    { Ic: IcBell, t: 'Notifications', d: 'Leaks, budgets, nudges', c: 'var(--amber)', go: 'notifications' },
     { Ic: IcProfile, t: 'Personal info', d: 'Name, phone, KYC', c: 'var(--ink-2)' },
     { Ic: IcShield, t: 'Privacy & security', d: 'Face ID, data controls', c: 'var(--brand)' },
   ]
   return (
-    <Phone tab="profile">
+    <>
       <AppBar title="Profile" right={<button className="iconbtn" aria-label="Settings"><IcSettings size={20} /></button>} />
       <div className="pad" style={{ paddingTop: 2 }}>
         <div className="card center" style={{ padding: '20px 16px' }}>
@@ -32,7 +33,7 @@ export function ProfileHome() {
 
         <div className="card" style={{ marginTop: 14, padding: '6px 16px' }}>
           {items.map((r, i) => (
-            <div className="row" key={i}>
+            <div className={'row' + (r.go ? ' tap' : '')} key={i} onClick={r.go ? () => nav.go(r.go) : undefined}>
               <div className="ic" style={{ width: 40, height: 40, borderRadius: 12, background: 'var(--surface-2)', color: r.c }}><r.Ic size={20} /></div>
               <div className="body"><b style={{ fontWeight: 600 }}>{r.t}</b><span>{r.d}</span></div>
               <IcChevR size={20} className="muted" />
@@ -43,7 +44,7 @@ export function ProfileHome() {
         <button className="btn btn-secondary" style={{ marginTop: 16, color: 'var(--red)' }}>Log out</button>
         <p className="muted center" style={{ fontSize: 11.5, marginTop: 14 }}>SpendWise v1.0 · Not investment advice</p>
       </div>
-    </Phone>
+    </>
   )
 }
 
@@ -54,7 +55,7 @@ export function Goals() {
     { Ic: IcArrowUp, t: 'Start investing', now: 24000, target: 100000, pct: 24, c: 'var(--brand)' },
   ]
   return (
-    <Phone tab="profile">
+    <>
       <AppBar title="Goals" sub="What you’re working towards" back right={<button className="iconbtn" aria-label="Add"><IcTarget size={18} /></button>} />
       <div className="pad" style={{ paddingTop: 4 }}>
         <div className="stack-gap">
@@ -83,19 +84,19 @@ export function Goals() {
 
         <button className="btn btn-secondary" style={{ marginTop: 16 }}>+ Create a new goal</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* Linked accounts */
 export function LinkedAccounts() {
   const accounts = [
-    { e: '🏦', n: 'HDFC Bank', d: 'Savings ••4210', bal: 48200, ok: true },
-    { e: '🏦', n: 'ICICI Bank', d: 'Salary ••8830', bal: 12600, ok: true },
-    { e: '💳', n: 'HDFC Credit Card', d: '••5501 · due 18 Aug', bal: -8400, ok: true },
+    { e: '🏦', n: 'HDFC Bank', d: 'Savings ••4210', bal: 48200 },
+    { e: '🏦', n: 'ICICI Bank', d: 'Salary ••8830', bal: 12600 },
+    { e: '💳', n: 'HDFC Credit Card', d: '••5501 · due 18 Aug', bal: -8400 },
   ]
   return (
-    <Phone tab="profile">
+    <>
       <AppBar title="Linked accounts" sub="Read-only · via account aggregator" back />
       <div className="pad" style={{ paddingTop: 4 }}>
         <div className="banner green" style={{ marginBottom: 14 }}>
@@ -119,7 +120,7 @@ export function LinkedAccounts() {
         <button className="btn btn-secondary" style={{ marginTop: 16 }}><IcLink size={18} /> Link another account</button>
         <p className="muted center" style={{ fontSize: 12, marginTop: 14 }}>Manage or revoke access anytime. Changes apply instantly.</p>
       </div>
-    </Phone>
+    </>
   )
 }
 
@@ -141,7 +142,7 @@ export function Notifications() {
     ] },
   ]
   return (
-    <Phone tab="profile">
+    <>
       <AppBar title="Notifications" sub="Only what actually helps" back />
       <div className="pad" style={{ paddingTop: 4 }}>
         {groups.map((g, gi) => (
@@ -162,6 +163,6 @@ export function Notifications() {
           <p style={{ fontSize: 12.5 }}>We keep it calm — at most one nudge a day. Money stress, reduced.</p>
         </div>
       </div>
-    </Phone>
+    </>
   )
 }

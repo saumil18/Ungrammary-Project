@@ -1,5 +1,5 @@
-import { Phone } from '../components/Phone.jsx'
 import { AppBar, AreaLine, inr } from '../components/UI.jsx'
+import { useNav } from '../navContext.js'
 import { IcShield, IcArrowUp, IcInfo, IcCheck, IcChevR, IcSpark, IcCoins } from '../components/Icons.jsx'
 
 const FUNDS = [
@@ -13,11 +13,12 @@ const riskLabel = (r) => r === 'low' ? 'Low risk' : r === 'med' ? 'Medium risk' 
 
 /* Recommendations */
 export function InvestRecs() {
+  const nav = useNav()
   return (
-    <Phone tab="invest">
+    <>
       <AppBar title="Invest" sub="Small, low-risk, automatic" right={<span className="pill brand"><IcSpark size={13} /> For you</span>} />
       <div className="pad" style={{ paddingTop: 2 }}>
-        <div className="card" style={{ background: 'linear-gradient(155deg,#12B76A,#0B8F54)', border: 'none', color: '#fff' }}>
+        <div className="card grad-green" style={{ border: 'none', color: '#fff' }}>
           <span style={{ fontSize: 12.5, opacity: 0.9, fontWeight: 600 }}>You have leaks worth</span>
           <div className="display sm tnum" style={{ margin: '4px 0 2px' }}>{inr(2400)}<span style={{ fontSize: 15, opacity: 0.7 }}>/mo</span></div>
           <p style={{ fontSize: 12.5, opacity: 0.9 }}>Put them to work. Start with as little as ₹100.</p>
@@ -31,7 +32,7 @@ export function InvestRecs() {
         <div className="card-h" style={{ margin: '4px 2px 8px' }}><h4 style={{ fontSize: 14 }}>Recommended for you</h4></div>
         <div className="stack-gap">
           {FUNDS.map((f, i) => (
-            <div className="card" key={i} style={{ padding: 14, borderColor: f.tag ? 'var(--green)' : 'var(--line)', boxShadow: f.tag ? '0 0 0 3px var(--green-soft)' : 'var(--sh-1)' }}>
+            <div className="card tap" key={i} style={{ padding: 14, borderColor: f.tag ? 'var(--green)' : 'var(--line)', boxShadow: f.tag ? '0 0 0 3px var(--green-soft)' : 'var(--sh-1)' }} onClick={() => nav.go('investDetail')}>
               <div className="rowflex">
                 <div className="ic" style={{ width: 44, height: 44, borderRadius: 13, background: 'var(--surface-2)', color: f.color }}><IcCoins size={22} /></div>
                 <div className="grow">
@@ -48,15 +49,16 @@ export function InvestRecs() {
           ))}
         </div>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* Investment detail */
 export function InvestDetail() {
+  const nav = useNav()
   const pts = [{ x: 0, y: 10 }, { x: 1, y: 12 }, { x: 2, y: 11.4 }, { x: 3, y: 13 }, { x: 4, y: 14.2 }, { x: 5, y: 15, big: true }]
   return (
-    <Phone tab="invest">
+    <>
       <AppBar title="Steady Growth" sub="Debt + gold · Low risk" back right={<span className="pill green">Low risk</span>} />
       <div className="pad" style={{ paddingTop: 4 }}>
         <div className="card">
@@ -96,17 +98,18 @@ export function InvestDetail() {
         </div>
       </div>
       <div className="pad mt-a" style={{ paddingTop: 12 }}>
-        <button className="btn btn-green">Simulate & invest</button>
+        <button className="btn btn-green cta" onClick={() => nav.go('simulator')}>Simulate &amp; invest</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* Simulator */
 export function Simulator() {
+  const nav = useNav()
   const pts = [{ x: 0, y: 2400 }, { x: 1, y: 8000 }, { x: 2, y: 15000 }, { x: 3, y: 22000 }, { x: 4, y: 30200, big: true }]
   return (
-    <Phone tab="invest">
+    <>
       <AppBar title="Simulator" sub="See it grow before you commit" back />
       <div className="pad" style={{ paddingTop: 4 }}>
         <div className="card center" style={{ padding: '18px 16px' }}>
@@ -132,17 +135,18 @@ export function Simulator() {
         </div>
       </div>
       <div className="pad mt-a" style={{ paddingTop: 12 }}>
-        <button className="btn btn-green">Continue</button>
+        <button className="btn btn-green cta" onClick={() => nav.go('roundup')}>Continue</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* Round-up toggle */
 const Toggle = ({ on }) => <div className={'toggle' + (on ? ' on' : '')}><i /></div>
 export function RoundUp() {
+  const nav = useNav()
   return (
-    <Phone tab="invest">
+    <>
       <AppBar title="Auto-invest" sub="Set it and forget it" back />
       <div className="pad" style={{ paddingTop: 4 }}>
         <div className="card">
@@ -172,35 +176,34 @@ export function RoundUp() {
         </div>
       </div>
       <div className="pad mt-a" style={{ paddingTop: 12 }}>
-        <button className="btn btn-primary">Confirm auto-invest</button>
+        <button className="btn btn-primary cta" onClick={() => nav.go('investSuccess')}>Confirm auto-invest</button>
       </div>
-    </Phone>
+    </>
   )
 }
 
 /* Confirm & success */
 export function InvestSuccess() {
+  const nav = useNav()
   return (
-    <Phone darkStatus bg="linear-gradient(160deg,#12B76A 0%,#0B9E5C 55%,#0B7B47 100%)">
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column', color: '#fff', padding: '18px 22px 26px' }}>
-        <div className="grow" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-          <div style={{ width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,0.18)', display: 'grid', placeItems: 'center', marginBottom: 22 }}>
-            <IcCheck size={54} sw={2.4} />
-          </div>
-          <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.02em' }}>You’re investing! 🎉</h1>
-          <p style={{ fontSize: 15, opacity: 0.92, marginTop: 10, maxWidth: 250 }}>
-            {inr(2400)}/month is now going into <b>Steady Growth</b>. First deposit on 1st Sep.
-          </p>
-          <div style={{ marginTop: 22, background: 'rgba(255,255,255,0.16)', borderRadius: 18, padding: '16px 20px', width: '100%' }}>
-            <div className="spread"><span style={{ opacity: 0.9, fontSize: 13 }}>Monthly</span><b className="tnum">{inr(2400)}</b></div>
-            <div className="spread" style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid rgba(255,255,255,0.2)' }}><span style={{ opacity: 0.9, fontSize: 13 }}>Est. in 5 years</span><b className="tnum">~{inr(175000)}</b></div>
-          </div>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', color: '#fff', padding: '18px 22px 26px' }}>
+      <div className="grow" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+        <div className="pop-in" style={{ width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,0.18)', display: 'grid', placeItems: 'center', marginBottom: 22 }}>
+          <IcCheck size={54} sw={2.4} />
         </div>
-        <div className="stack-gap">
-          <button className="btn" style={{ background: '#fff', color: 'var(--green)' }}>View my investments</button>
-          <button className="btn btn-ghost" style={{ color: '#fff' }}>Back to home</button>
+        <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.02em' }}>You’re investing! 🎉</h1>
+        <p style={{ fontSize: 15, opacity: 0.92, marginTop: 10, maxWidth: 250 }}>
+          {inr(2400)}/month is now going into <b>Steady Growth</b>. First deposit on 1st Sep.
+        </p>
+        <div style={{ marginTop: 22, background: 'rgba(255,255,255,0.16)', borderRadius: 18, padding: '16px 20px', width: '100%' }}>
+          <div className="spread"><span style={{ opacity: 0.9, fontSize: 13 }}>Monthly</span><b className="tnum">{inr(2400)}</b></div>
+          <div className="spread" style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid rgba(255,255,255,0.2)' }}><span style={{ opacity: 0.9, fontSize: 13 }}>Est. in 5 years</span><b className="tnum">~{inr(175000)}</b></div>
         </div>
       </div>
-    </Phone>
+      <div className="stack-gap">
+        <button className="btn cta" style={{ background: '#fff', color: 'var(--green)' }} onClick={() => nav.tab('invest')}>View my investments</button>
+        <button className="btn btn-ghost" style={{ color: '#fff' }} onClick={() => nav.tab('home')}>Back to home</button>
+      </div>
+    </div>
   )
 }
