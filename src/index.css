@@ -57,7 +57,7 @@ body {
     #EEF0F5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 /* number-heavy UI reads better with tabular figures */
@@ -174,11 +174,13 @@ body {
   overflow: hidden;
   position: relative;
 }
-/* compact authoring canvas, uniformly scaled to fill the 393×852 screen */
+/* Authoring canvas scaled to fill the 393×852 screen. The canvas width is
+   tuned so authored type lands at iOS-appropriate sizes (≈1.10× → e.g. a 24px
+   title renders ~26px, 14px body ~15px) rather than the earlier inflated look. */
 .phone-canvas {
   position: absolute; top: 0; left: 0;
-  width: 284px; height: 615.68px;      /* 284 × (852/393) keeps the device ratio */
-  transform: scale(1.38380);           /* 393 / 284 */
+  width: 357px; height: 774px;         /* 357 × (852/393) keeps the device ratio */
+  transform: scale(1.10084);           /* 393 / 357 */
   transform-origin: top left;
   display: flex; flex-direction: column;
 }
@@ -243,7 +245,7 @@ body {
 .card-h h4 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
 .card-h .link { font-size: 12.5px; font-weight: 700; color: var(--brand); }
 
-.eyebrow { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; }
+.eyebrow { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.01em; }
 
 /* big display number */
 .display {
